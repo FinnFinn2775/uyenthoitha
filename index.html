@@ -9,31 +9,16 @@
       margin: 0;
       padding: 0;
       font-family: 'Pacifico', cursive;
-      overflow: hidden;
       background: radial-gradient(ellipse at bottom, #0d1b2a 0%, #000000 100%);
-    }
-
-    /* Bầu trời sao */
-    .star {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      animation: twinkle 2s infinite ease-in-out;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.3; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.3); }
+      overflow: hidden;
+      color: #fff;
+      text-align: center;
     }
 
     #question {
       font-size: 30px;
-      color: #ffb6c1;
-      text-align: center;
       margin-top: 100px;
       text-shadow: 1px 1px 2px #fff;
-      z-index: 2;
-      position: relative;
     }
 
     .btn {
@@ -68,25 +53,21 @@
 
     #message {
       font-size: 24px;
-      color: #fff;
-      text-align: center;
       margin-top: 60px;
       z-index: 2;
       position: relative;
     }
 
-    .sticker {
+    .star {
       position: absolute;
-      width: 60px;
-      animation: float 6s infinite ease-in-out;
-      pointer-events: none;
-      z-index: 1;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite ease-in-out;
     }
 
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-30px); }
-      100% { transform: translateY(0); }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.3); }
     }
   </style>
 </head>
@@ -97,14 +78,8 @@
   <button id="btnNo" class="btn">Không</button>
   <div id="message"></div>
 
-  <!-- Sticker Emotes -->
-  <img src="https://em-content.zobj.net/thumbs/240/apple/354/unicorn_1f984.png" class="sticker" style="top: 20px; left: 10%;">
-  <img src="https://em-content.zobj.net/thumbs/240/apple/354/sparkles_2728.png" class="sticker" style="top: 80px; left: 80%;">
-  <img src="https://em-content.zobj.net/thumbs/240/apple/354/panda_1f43c.png" class="sticker" style="top: 150px; left: 30%;">
-  <img src="https://em-content.zobj.net/thumbs/240/apple/354/heart-with-ribbon_1f49d.png" class="sticker" style="top: 200px; left: 70%;">
-
   <script>
-    // Tạo sao ngẫu nhiên
+    // Tạo bầu trời sao
     for (let i = 0; i < 100; i++) {
       const star = document.createElement('div');
       const size = Math.random() * 3 + 1;
@@ -117,32 +92,34 @@
       document.body.appendChild(star);
     }
 
-    let clickCount = 0;
+    let yesClickCount = 0;
     const btnYes = document.getElementById("btnYes");
     const btnNo = document.getElementById("btnNo");
     const question = document.getElementById("question");
     const message = document.getElementById("message");
 
     btnYes.addEventListener("click", () => {
-      clickCount++;
-      if (clickCount < 3) {
-        const x = Math.random() * window.innerWidth * 0.8;
-        const y = Math.random() * window.innerHeight * 0.8;
-        btnYes.style.left = `${x}px`;
-        btnYes.style.top = `${y}px`;
-        btnYes.style.transform = `scale(${1 - clickCount * 0.3})`;
-      } else {
+      yesClickCount++;
+      const x = Math.random() * window.innerWidth * 0.8;
+      const y = Math.random() * window.innerHeight * 0.8;
+      btnYes.style.left = `${x}px`;
+      btnYes.style.top = `${y}px`;
+
+      if (yesClickCount === 3) {
         btnYes.style.display = "none";
-        btnNo.click();
+        btnNo.style.display = "none";
+        question.style.display = "none";
+        message.textContent = "Bạn đừng cố chấp nữa, hãy từ bỏ và xin lỗi đi.";
       }
     });
 
     btnNo.addEventListener("click", () => {
-      question.remove();
-      message.textContent = "Tôi xin lỗi, tôi không bao giờ muốn làm mẹ bạn nữa 😭💔";
+      message.textContent = "Em xin lỗi anh";
+      btnYes.style.display = "none";
+      btnNo.style.display = "none";
+      question.style.display = "none";
     });
   </script>
 
 </body>
-
 </html>
