@@ -1,139 +1,50 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <title>Câu hỏi dễ thương</title>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Pacifico', cursive;
-      background: radial-gradient(ellipse at bottom, #0d1b2a 0%, #000000 100%);
-      overflow: hidden;
-      color: #fff;
-      text-align: center;
-    }
+<script>
+  // Tạo bầu trời sao
+  for (let i = 0; i < 100; i++) {
+    const star = document.createElement('div');
+    const size = Math.random() * 3 + 1;
+    star.className = 'star';
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    star.style.top = `${Math.random() * window.innerHeight}px`;
+    star.style.left = `${Math.random() * window.innerWidth}px`;
+    star.style.animationDuration = `${Math.random() * 3 + 1}s`;
+    document.body.appendChild(star);
+  }
 
-    #question {
-      font-size: 30px;
-      margin-top: 100px;
-      text-shadow: 1px 1px 2px #fff;
-    }
+  let yesClickCount = 0;
+  const btnYes = document.getElementById("btnYes");
+  const btnNo = document.getElementById("btnNo");
+  const question = document.getElementById("question");
+  const message = document.getElementById("message");
 
-    .btn {
-      padding: 14px 28px;
-      font-size: 22px;
-      border: none;
-      border-radius: 40px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      cursor: pointer;
-      transition: transform 0.3s ease;
-      position: absolute;
-      z-index: 2;
-    }
+  btnYes.addEventListener("click", () => {
+    yesClickCount++;
+    const x = Math.random() * window.innerWidth * 0.8;
+    const y = Math.random() * window.innerHeight * 0.8;
+    btnYes.style.left = `${x}px`;
+    btnYes.style.top = `${y}px`;
 
-    .btn:hover {
-      transform: scale(1.1) rotate(-2deg);
-    }
-
-    #btnYes {
-      background-color: #ff69b4;
-      color: white;
-      left: 20%;
-      top: 300px;
-    }
-
-    #btnNo {
-      background-color: #87ceeb;
-      color: white;
-      left: 70%;
-      top: 300px;
-    }
-
-    #message {
-      font-size: 24px;
-      margin-top: 60px;
-      z-index: 2;
-      position: relative;
-      white-space: pre-line;
-    }
-
-    .star {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      animation: twinkle 2s infinite ease-in-out;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.3; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.3); }
-    }
-  </style>
-</head>
-<body>
-
-  <div id="question">Bạn có muốn làm mẹ tui không?</div>
-  <button id="btnYes" class="btn">Có</button>
-  <button id="btnNo" class="btn">Không</button>
-  <div id="message"></div>
-
-  <script>
-    // Tạo bầu trời sao
-    for (let i = 0; i < 100; i++) {
-      const star = document.createElement('div');
-      const size = Math.random() * 3 + 1;
-      star.className = 'star';
-      star.style.width = `${size}px`;
-      star.style.height = `${size}px`;
-      star.style.top = `${Math.random() * window.innerHeight}px`;
-      star.style.left = `${Math.random() * window.innerWidth}px`;
-      star.style.animationDuration = `${Math.random() * 3 + 1}s`;
-      document.body.appendChild(star);
-    }
-
-    let yesClickCount = 0;
-    let cycleCount = 0;
-    const btnYes = document.getElementById("btnYes");
-    const btnNo = document.getElementById("btnNo");
-    const question = document.getElementById("question");
-    const message = document.getElementById("message");
-
-    btnYes.addEventListener("click", () => {
-      yesClickCount++;
-      const x = Math.random() * window.innerWidth * 0.8;
-      const y = Math.random() * window.innerHeight * 0.8;
-      btnYes.style.left = `${x}px`;
-      btnYes.style.top = `${y}px`;
-
-      if (yesClickCount === 3) {
-        yesClickCount = 0;
-        cycleCount++;
-        const delay = 5000 + (cycleCount - 1) * 5000;
-        const lines = Array(cycleCount).fill("Bạn đừng cố chấp nữa, xin lỗi đi.").join("\n");
-
-        btnYes.style.display = "none";
-        btnNo.style.display = "none";
-        question.style.display = "none";
-        message.textContent = lines;
-
-        setTimeout(() => {
-          btnYes.style.display = "inline-block";
-          btnNo.style.display = "inline-block";
-          question.style.display = "block";
-          message.textContent = "";
-        }, delay);
-      }
-    });
-
-    btnNo.addEventListener("click", () => {
-      message.textContent = "Em xin lỗi anh";
+    if (yesClickCount === 3) {
+      yesClickCount = 0;
       btnYes.style.display = "none";
       btnNo.style.display = "none";
       question.style.display = "none";
-    });
-  </script>
+      message.textContent = "Bạn đừng cố chấp nữa, xin lỗi đi.";
 
-</body>
-</html>
+      setTimeout(() => {
+        btnYes.style.display = "inline-block";
+        btnNo.style.display = "inline-block";
+        question.style.display = "block";
+        message.textContent = "";
+      }, 3000); // Chỉ 3 giây
+    }
+  });
+
+  btnNo.addEventListener("click", () => {
+    message.textContent = "Em xin lỗi anh";
+    btnYes.style.display = "none";
+    btnNo.style.display = "none";
+    question.style.display = "none";
+  });
+</script>
