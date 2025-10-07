@@ -74,7 +74,7 @@
 </head>
 <body>
 
-  <div id="question">Bạn có muốn làm mẹ tui không?</div>
+  <div id="question">cậu có muốn làm mẹ tớ không?</div>
   <button id="btnYes" class="btn">Có</button>
   <button id="btnNo" class="btn">Không</button>
   <div id="message"></div>
@@ -94,6 +94,7 @@
     }
 
     let yesClickCount = 0;
+    let warningCount = 0;
     const btnYes = document.getElementById("btnYes");
     const btnNo = document.getElementById("btnNo");
     const question = document.getElementById("question");
@@ -106,15 +107,15 @@
       btnYes.style.left = `${x}px`;
       btnYes.style.top = `${y}px`;
 
-      // Hiện thông báo mỗi lần nhấn 3 lần
       if (yesClickCount === 3) {
         yesClickCount = 0;
+        warningCount++;
         btnYes.style.display = "none";
         btnNo.style.display = "none";
         question.style.display = "none";
 
-        const lines = Array(yesClickCount + 1).fill("Cậu đừng cố chấp nữa, chọn không đi.").join("\n");
-        message.textContent = "Bạn đừng cố chấp nữa, xin lỗi đi.\n" + lines;
+        const lines = Array(warningCount).fill("Cậu đừng cố chấp muốn làm mẹ tớ nữa.").join("\n");
+        message.textContent = lines;
 
         setTimeout(() => {
           btnYes.style.display = "inline-block";
@@ -126,7 +127,7 @@
     });
 
     btnNo.addEventListener("click", () => {
-      message.textContent = "Em xin lỗi anh";
+      message.textContent = "Đúng rồi cậu không phải mẹ tớ";
       btnYes.style.display = "none";
       btnNo.style.display = "none";
       question.style.display = "none";
