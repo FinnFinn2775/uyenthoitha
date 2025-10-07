@@ -30,7 +30,7 @@
       btnYes.style.display = "none";
       btnNo.style.display = "none";
       question.style.display = "none";
-      message.textContent = "Bạn đừng cố chấp nữa, xin lỗi đi.";
+      message.textContent = "Bạn đừng cố chấp nữa,chọn không đi.";
 
       setTimeout(() => {
         btnYes.style.display = "inline-block";
@@ -42,9 +42,10 @@
   });
 
   btnNo.addEventListener("click", () => {
-    message.textContent = "Em xin lỗi anh";
+    message.textContent = "Tốt rồi! Đừng đòi làm mẹ anh nữa nha!";
     btnYes.style.display = "none";
     btnNo.style.display = "none";
     question.style.display = "none";
   });
 </script>
+
