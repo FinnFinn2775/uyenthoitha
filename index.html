@@ -56,6 +56,7 @@
       margin-top: 60px;
       z-index: 2;
       position: relative;
+      white-space: pre-line;
     }
 
     .star {
@@ -93,6 +94,7 @@
     }
 
     let yesClickCount = 0;
+    let cycleCount = 0;
     const btnYes = document.getElementById("btnYes");
     const btnNo = document.getElementById("btnNo");
     const question = document.getElementById("question");
@@ -106,10 +108,22 @@
       btnYes.style.top = `${y}px`;
 
       if (yesClickCount === 3) {
+        yesClickCount = 0;
+        cycleCount++;
+        const delay = 5000 + (cycleCount - 1) * 5000;
+        const lines = Array(cycleCount).fill("Bạn đừng cố chấp nữa, xin lỗi đi.").join("\n");
+
         btnYes.style.display = "none";
         btnNo.style.display = "none";
         question.style.display = "none";
-        message.textContent = "Bạn đừng cố chấp nữa, hãy từ bỏ và xin lỗi đi.";
+        message.textContent = lines;
+
+        setTimeout(() => {
+          btnYes.style.display = "inline-block";
+          btnNo.style.display = "inline-block";
+          question.style.display = "block";
+          message.textContent = "";
+        }, delay);
       }
     });
 
